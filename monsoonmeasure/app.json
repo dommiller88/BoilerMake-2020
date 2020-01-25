@@ -24,10 +24,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleidentifier": "com.boilermake.monsoonmeasure",
+      "config": {
+        "googleMapsApiKey": "AIzaSyBL0kztLC6c01INEsxGC0lF4LnTF-gWa-4"
+      }
     },
     "android": {
-      "package": "com.boilermake.monsoonmeasure"
+      "package": "com.boilermake.monsoonmeasure",
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyBD7WjgQlpu_F9z7yLqxD0544F3BIu3Zxk" }   
+     }
     }
   }
 }
