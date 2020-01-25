@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "monsoonmeasure",
-    "slug": "monsoonmeasure",
+    "name": "Monsoon Measure",
+    "slug": "MonsoonMeasure",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
