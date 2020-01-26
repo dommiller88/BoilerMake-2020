@@ -21,7 +21,7 @@ export default class Results extends React.Component {
     render() {
         return (
             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '80%', alignSelf: 'center'}}>
-                <Text style={{fontSize: 30, textAlign: 'center'}}>{"You saved " + Math.round(this.state.waterCollected) + " gallons!"}</Text>
+                <Text style={{fontSize: 30, textAlign: 'center'}}>{"You could save " + Math.round(this.state.waterCollected) + " gallons!"}</Text>
             </View>
         )
     }
