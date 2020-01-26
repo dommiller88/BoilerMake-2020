@@ -46,9 +46,9 @@ const ColoredStatusBar = ({backgroundColor, ...props}) => (
 export default class App extends React.Component {
     render() {
         return (
-            <SafeAreaView style={{flex: 1}} forceInset={{top: 'never'}}>
+            <SafeAreaView style={{flex: 1}} forceInset={{top: 'never', bottom: 'never'}}>
                 <ThemeProvider theme={global.theme}>
-                    <ColoredStatusBar backgroundColor={global.theme.colors.primary} barStyle="light-content"/>
+                    <ColoredStatusBar backgroundColor={global.theme.colors.primary} barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}/>
                     <AppContainer/>
                 </ThemeProvider>
             </SafeAreaView>
