@@ -5,6 +5,7 @@ import {Button, Icon, Overlay, Text} from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import {mapStyle} from "../mapStyle";
+import axios from 'axios'
 
 let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -27,6 +28,7 @@ export default class Map extends React.Component {
             isVisible: false,
             markerLatitude: 0,
             markerLongitude: 0,
+            location: "Loading..."
         }
     }
 
@@ -58,7 +60,6 @@ export default class Map extends React.Component {
         };
 
         this.map.animateToRegion(region, 1000);
-        console.log(this.marker.props.coordinate)
         this.state.markerLatitude = LATITUDE;
         this.state.markerLongitude = LONGITUDE;
 
@@ -66,7 +67,20 @@ export default class Map extends React.Component {
     };
 
     _getLocationName = async () => {
-        console.log("test")
+        this.getCoordinateData(this.state.markerLatitude, this.state.markerLongitude).then(data => {
+            const locationName = data[0].display_name.split(',')[0]
+            this.state.location = locationName;
+            this.setState(this.state);
+            return locationName;
+        })
+    }
+
+    async getCoordinateData(latitude, longitude) {
+        const URL = "http://nominatim.openstreetmap.org/search/" + latitude + "," + longitude + "?format=json&polygon_geojson=1";
+        return axios.get(URL).then(response => {
+            // returning the data here allows the caller to get it through another .then(...)
+            return response.data
+        })
     }
 
     render() {
@@ -101,6 +115,7 @@ export default class Map extends React.Component {
                     onPress={() => {
                         this.state.isVisible = true;
                         this.setState(this.state);
+                        this._getLocationName();
                     }}
                     reverse
                     name='check'
@@ -118,18 +133,17 @@ export default class Map extends React.Component {
                 <Overlay isVisible={this.state.isVisible} height="auto">
                     <View style={{marginTop: 7}}>
                         <Text style={{textAlign: 'center', fontSize: 20}}>You've selected:</Text>
-                        <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>Harrison Hall</Text>
+                        <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>{this.state.location}</Text>
                     </View>
                     <View style={{marginTop: 37, height: 110, justifyContent: 'space-evenly'}}>
                         <Button iconRight icon={<Icon name="check" type="font-awesome" color='white'/>}
                                 buttonStyle={{backgroundColor: '#40a173'}} title="Yes, that's correct! "
-                                onPress={() => {
-                                    this._getLocationName()
-                                }}/>
+                                />
                         <Button icon={<Icon name="arrow-left" type="font-awesome" color='white'/>}
                                 buttonStyle={{backgroundColor: '#f44336'}} title=" No, take me back"
                                 onPress={() => {
                                     this.state.isVisible = false;
+                                    this.state.location = "Loading..."
                                     this.setState(this.state);
                                 }}/>
                     </View>
