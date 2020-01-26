@@ -6,6 +6,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {StackViewStyleInterpolator} from 'react-navigation-stack'
 import Map from "./App/Map";
 import Navigation from "./App/components/Navigation";
+import Results from "./App/Results"
 
 global.theme = {
     colors: {
@@ -48,7 +49,7 @@ export default class App extends React.Component {
         return (
             <SafeAreaView style={{flex: 1}} forceInset={{top: 'never', bottom: 'never'}}>
                 <ThemeProvider theme={global.theme}>
-                    <ColoredStatusBar backgroundColor={global.theme.colors.primary} barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}/>
+                    <ColoredStatusBar backgroundColor={global.theme.colors.primary} barStyle='light-content'/>
                     <AppContainer/>
                 </ThemeProvider>
             </SafeAreaView>
@@ -59,6 +60,7 @@ export default class App extends React.Component {
 const AppNavigator = createStackNavigator(
     {
         Map: Map,
+        Results: Results
     },
     {
         initialRouteName: 'Map',
@@ -69,6 +71,8 @@ const AppNavigator = createStackNavigator(
         defaultNavigationOptions: {
             title: "Monsoon Measure",
             headerTitle: <Navigation/>,
+            headerBackTitle: "",
+            // headerBackTitleVisible: false,
             headerStyle: {
                 backgroundColor: '#1D7DB9',
                 height: 140,

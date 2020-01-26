@@ -25,7 +25,8 @@
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^2.0.16"
+    "react-navigation-stack": "^2.0.16",
+    "spherical-geometry-js": "^2.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
