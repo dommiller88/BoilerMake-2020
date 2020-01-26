@@ -24,7 +24,9 @@ export default class Map extends React.Component {
         super();
 
         this.state = {
-            isVisible: false
+            isVisible: false,
+            markerLatitude: 0,
+            markerLongitude: 0,
         }
     }
 
@@ -56,6 +58,11 @@ export default class Map extends React.Component {
         };
 
         this.map.animateToRegion(region, 1000);
+        console.log(this.marker.props.coordinate)
+        this.state.markerLatitude = LATITUDE;
+        this.state.markerLongitude = LONGITUDE;
+
+        this.setState(this.state);
     };
 
     _getLocationName = async () => {
@@ -76,7 +83,19 @@ export default class Map extends React.Component {
                              latitudeDelta: LATITUDE_DELTA,
                              longitudeDelta: LONGITUDE_DELTA,
                          }}
-                />
+                         onPress={(event) => {
+                             this.state.markerLatitude = event.nativeEvent.coordinate.latitude;
+                             this.state.markerLongitude = event.nativeEvent.coordinate.longitude;
+                             this.setState(this.state);
+                         }}
+                >
+                    <MapView.Marker ref={marker => {
+                        this.marker = marker
+                    }} pinColor="blue" coordinate={{
+                        latitude: this.state.markerLatitude,
+                        longitude: this.state.markerLongitude
+                    }}/>
+                </MapView>
                 <Icon
                     containerStyle={{position: "absolute", bottom: 90, right: 20}}
                     onPress={() => {
