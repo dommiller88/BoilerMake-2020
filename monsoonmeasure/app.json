@@ -4,6 +4,7 @@
     "slug": "MonsoonMeasure",
     "privacy": "public",
     "sdkVersion": "36.0.0",
+    "primaryColor": "#1D7DB9",
     "platforms": [
       "ios",
       "android",

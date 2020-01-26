@@ -4,6 +4,7 @@ import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
 import {Button, Icon, Overlay, Text} from 'react-native-elements';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import {mapStyle} from "../mapStyle";
 
 let {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -15,7 +16,7 @@ let LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 export default class Map extends React.Component {
     static navigationOptions = ({navigation}) => {
         return {
-            headerShown: false,
+            headerShown: true,
         };
     };
 
@@ -66,7 +67,8 @@ export default class Map extends React.Component {
             <View style={{flex: 1}}>
                 <MapView ref={map => {
                     this.map = map
-                }} style={{flex: 1, alignSelf: 'stretch'}} showsUserLocation={true}
+                }}
+                         customMapStyle={mapStyle} style={{flex: 1, alignSelf: 'stretch'}} showsUserLocation={true}
                          provider={PROVIDER_GOOGLE}
                          initialRegion={{
                              latitude: LATITUDE,
